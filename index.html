@@ -83,6 +83,38 @@
 <a href="#rpkgs" class="anchor"></a>rpkgs</h1></div>
 <p>A skeleton for R packages + Docker / Pkgdown / Pages aimed for Bioconductor</p>
 <p><img src="https://github.com/montilab/rpkgs/workflows/.github/workflows/build.yaml/badge.svg" alt=".github/workflows/build.yaml"><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-4ba598.svg"></a></p>
+<div id="halp" class="section level2">
+<h2 class="hasAnchor">
+<a href="#halp" class="anchor"></a>Halp</h2>
+<p>Having trouble getting your package to build?</p>
+<div id="build-your-dockerfile-locally" class="section level4">
+<h4 class="hasAnchor">
+<a href="#build-your-dockerfile-locally" class="anchor"></a>Build your Dockerfile locally</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">docker</span> build --tag montilab/rpkgs:latest .</span></code></pre></div>
+<p>Does it build successfully?</p>
+</div>
+<div id="see-if-the-package-is-loadable-on-the-image" class="section level4">
+<h4 class="hasAnchor">
+<a href="#see-if-the-package-is-loadable-on-the-image" class="anchor"></a>See if the package is loadable on the image</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>docker run <span class="op">-</span>i <span class="op">-</span>t montilab<span class="op">/</span>rpkgs<span class="op">:</span>latest <span class="op">/</span>bin<span class="op">/</span>bash</span>
+<span id="cb2-2"><a href="#cb2-2"></a>R</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">library</span>(rpkgs)</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">data</span>(example)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">print</span>(example)</span></code></pre></div>
+</div>
+<div id="build-your-github-workflow-file-slowly-and-locally" class="section level4">
+<h4 class="hasAnchor">
+<a href="#build-your-github-workflow-file-slowly-and-locally" class="anchor"></a>Build your github workflow file slowly and locally</h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Install this tool for local testing</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>brew install nektos<span class="op">/</span>tap<span class="op">/</span>act</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># List the actions</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>act <span class="op">-</span>l</span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># Run the default (`push`) event:</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>act</span></code></pre></div>
+</div>
+</div>
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#documentation" class="anchor"></a>Documentation</h2>
@@ -97,19 +129,19 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install the development version of the package from Github.</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"montilab/rpkgs"</span>)</pre></div>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"montilab/rpkgs"</span>)</pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rpkgs</span>)</pre></div>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">example</span>)
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rpkgs</span>)</pre></div>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">example</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">example</span>)</pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#&gt; [1]  1  2  5 10 25</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="no">cols</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rpkgs/man/colorize.html">colorize</a></span>(<span class="no">example</span>)
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#&gt; [1]  1  2  5 10 25</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="r"><span class="no">cols</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rpkgs/man/colorize.html">colorize</a></span>(<span class="no">example</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">cols</span>)</pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#&gt; [1] "#0D0887FF" "#280592FF" "#5D01A6FF" "#A92395FF" "#F0F921FF"</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/rpkgs/man/visualize.html">visualize</a></span>(<span class="no">cols</span>)</pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#&gt; [1] "#0D0887FF" "#280592FF" "#5D01A6FF" "#A92395FF" "#F0F921FF"</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/rpkgs/man/visualize.html">visualize</a></span>(<span class="no">cols</span>)</pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-5-1.png"><!-- --></p>
 </div>
 </div>
